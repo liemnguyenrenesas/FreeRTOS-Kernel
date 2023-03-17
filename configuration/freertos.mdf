@@ -54,7 +54,7 @@ The stack size is specified in words, not bytes.</description>
         <property id="configTOTAL_HEAP_SIZE" display="The total amount of RAM available in the FreeRTOS heap" default="8192" type="textbox">
             <constraint display="Value must be an integer">testInteger("${configTOTAL_HEAP_SIZE}")</constraint>
             <constraint display="Heap size must be greater than 0">("${configTOTAL_HEAP_SIZE}" &gt; 0)</constraint>
-            <constraint display="Heap size must be less than half of RAM capacity">((("${Device.group}" == "RX65N") &amp;&amp; ("${configTOTAL_HEAP_SIZE}")) &lt;= 327680)</constraint> <!-- Half size of RX65N (RAM = 640KB) should be (640/2)*1024 = 327680-->
+            <constraint display="Heap size must be less than half of RAM capacity">((("${Device.id}" == "R5F565NEDxFC") &amp;&amp; ("${configTOTAL_HEAP_SIZE}")) &lt;= 327680)</constraint> <!-- Half size of RX65N (RAM = 640KB) should be (640/2)*1024 = 327680-->
             <description>This value will only be used if configSUPPORT_DYNAMIC_ALLOCATION is set to 1 and the application makes use of one of the sample memory allocation schemes provided in the FreeRTOS source code download.</description>
         </property>
         <property id="configMAX_TASK_NAME_LEN" display="The maximum permissible length of name" default="12" type="textbox">
