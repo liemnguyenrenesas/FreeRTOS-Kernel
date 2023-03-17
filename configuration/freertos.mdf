@@ -45,16 +45,15 @@ A high tick rate frequency will have the effect of reducing the 'time slice' giv
             <description>Generally this should not be reduced from the value set in the FreeRTOSConfig.h file provided with the demo application for the port you are using.
 The stack size is specified in words, not bytes.</description>
         </property>
-        <property id="configTOTAL_HEAP_SIZE_N" display="The configTOTAL_HEAP_SIZE_N" default="4" type="textbox">
+        <property id="configTOTAL_HEAP_SIZE_N" display="The configTOTAL_HEAP_SIZE_N" default="8" type="textbox">
             <constraint display="Value must be an integer">testInteger("${configTOTAL_HEAP_SIZE_N}")</constraint>
-            <constraint display="Value must be greater than or equal to 1 and less than or equal to Device.ramSize">("${configTOTAL_HEAP_SIZE_N}" &gt;= 1) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= ${Device.ramSize})</constraint>
+            <constraint display="Heap size must be greater than 0">("${configTOTAL_HEAP_SIZE_N}" &gt; 0)</constraint>
+            <constraint display="Heap size must be less than half of RAM capacity">((("${Device.ramSize}" == 640) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 320)) || (("${Device.ramSize}" == 256) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 128)) || (("${Device.ramSize}" == 384) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 192)) || (("${Device.ramSize}" == 1024) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 512)))</constraint>
             <description>The total amount of RAM available in the FreeRTOS heap(Unit: Kbytes). The value is used for calculating HEAP_SIZE(Bytes) in following expression: 
 ( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 ) </description>
         </property>
-        <property id="configTOTAL_HEAP_SIZE" display="The total amount of RAM available in the FreeRTOS heap" default="8192" type="textbox">
-            <constraint display="Value must be an integer">testInteger("${configTOTAL_HEAP_SIZE}")</constraint>
-            <constraint display="Heap size must be greater than 0">("${configTOTAL_HEAP_SIZE}" &gt; 0)</constraint>
-            <constraint display="Heap size must be less than half of RAM capacity">((("${Device.id}" == "R5F565NEDxFC") &amp;&amp; ("${configTOTAL_HEAP_SIZE}")) &lt;= 327680)</constraint> <!-- Half size of RX65N (RAM = 640KB) should be (640/2)*1024 = 327680-->
+        <property id="configTOTAL_HEAP_SIZE" display="The total amount of RAM available in the FreeRTOS heap" default="( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 )" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configTOTAL_HEAP_SIZE}" == ( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 ))</constraint>
             <description>This value will only be used if configSUPPORT_DYNAMIC_ALLOCATION is set to 1 and the application makes use of one of the sample memory allocation schemes provided in the FreeRTOS source code download.</description>
         </property>
         <property id="configMAX_TASK_NAME_LEN" display="The maximum permissible length of name" default="12" type="textbox">
