@@ -48,7 +48,7 @@ The stack size is specified in words, not bytes.</description>
         <property id="configTOTAL_HEAP_SIZE_N" display="The configTOTAL_HEAP_SIZE_N" default="8" type="textbox">
             <constraint display="Value must be an integer">testInteger("${configTOTAL_HEAP_SIZE_N}")</constraint>
             <constraint display="Heap size must be greater than 0">("${configTOTAL_HEAP_SIZE_N}" &gt; 0)</constraint>
-            <constraint display="Heap size must be less than half of RAM capacity">((("${Device.ramSize}" == 640) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 320)) || (("${Device.ramSize}" == 256) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 128)) || (("${Device.ramSize}" == 384) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 192)) || (("${Device.ramSize}" == 1024) &amp;&amp; ("${configTOTAL_HEAP_SIZE_N}" &lt;= 512)))</constraint>
+            <constraint display="Heap size must be less than RAM capacity">("${configTOTAL_HEAP_SIZE_N}" &lt;= ${Device.ramSize})</constraint>
             <description>The total amount of RAM available in the FreeRTOS heap(Unit: Kbytes). The value is used for calculating HEAP_SIZE(Bytes) in following expression: 
 ( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 ) </description>
         </property>
